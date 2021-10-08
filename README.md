@@ -1,2 +1,2 @@
 # Venotify
-Venotify is a project which aims to help college students by notifying them of all the events, workshops happening in their college as well as reminding them of the classes they need to attend.  
+Remember how frustating it is when you missed some of the coolest events that you definetly wanted to be part of. Venotify aimssolve that problem for you as it will remind you of all the events and workshops happening in your college.
