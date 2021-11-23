@@ -29,11 +29,8 @@ class LoginPageState extends State<LoginPage> {
                 right: 20.0,
               ),
               decoration: BoxDecoration(
-                color: Colors.green.shade100,
-                border: Border.all(
-                  color: Colors.black87,
-                  width: 5.0,
-                ),
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                color: Colors.white,
               ),
               child: Form(
                 key: formkey,
@@ -46,7 +43,10 @@ class LoginPageState extends State<LoginPage> {
                     Container(margin: EdgeInsets.only(top: 20.0)),
                     submitButton(),
                     Container(margin: EdgeInsets.only(top: 40.0)),
+                    forgotPasswordField(),
+                    Container(margin: EdgeInsets.only(top: 20.0)),
                     signupLink(),
+                    Container(margin: EdgeInsets.only(top: 20.0))
                   ],
                 ),
               ))
@@ -84,6 +84,7 @@ class LoginPageState extends State<LoginPage> {
   Widget passwordField() {
     return TextFormField(
       obscureText: true,
+      keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: 'Password',
         labelStyle: TextStyle(
@@ -112,7 +113,7 @@ class LoginPageState extends State<LoginPage> {
   Widget submitButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: Colors.grey.shade900,
+        primary: Colors.purple.shade900,
         padding: EdgeInsets.all(15.0),
         textStyle: TextStyle(
           color: Colors.white10,
@@ -140,7 +141,6 @@ class LoginPageState extends State<LoginPage> {
             style: TextStyle(
               fontSize: 15.0,
               color: Colors.black,
-              fontStyle: FontStyle.italic,
             ),
           ),
           onSignup(),
@@ -160,7 +160,20 @@ class LoginPageState extends State<LoginPage> {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 15.0,
-          color: Colors.black,
+          color: Colors.purple,
+        ),
+      ),
+    );
+  }
+
+  Widget forgotPasswordField(){
+    return TextButton(
+      onPressed:(){},
+      child: Text(
+        'Forgot password?',
+        style: TextStyle(
+          fontSize: 15.0,
+          color: Colors.purple,
         ),
       ),
     );
