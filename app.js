@@ -4,6 +4,7 @@ const mongoose = require('mongoose')    //Because we need mongoose for the datab
 const bodyParser = require('body-parser');
 const SignUp = require('./models/signUp')
 const Login = require('./models/login')
+const Announcement = require('./models/announcement')
 app.use(bodyParser.json());
 
 const DB = "mongodb+srv://Dhruv:Dhruv123@cluster0.bxgwe.mongodb.net/Venotify?retryWrites=true&w=majority"   //Database link + authentication
@@ -12,6 +13,8 @@ mongoose.connect(DB, { useNewUrlParser: true, useUnifiedTopology: true }).then((
     console.log('connection successful');
   }).catch((err)=>console.log(err));
 
+
+// ROUTE FOR SIGN UP PAGE
 app.post('/SignUp', async(req,res) => {
   const signUpAs = req.body["SignUpAs"];
   const name = req.body["Name"];
@@ -20,8 +23,6 @@ app.post('/SignUp', async(req,res) => {
   const email = req.body["Email"];
   const branch = req.body["Branch"];
   const password = req.body["Password"];
-
-  console.log(sid);
 
   const records = await SignUp.findOne({Sid:sid});
   console.log(records)
@@ -41,6 +42,8 @@ app.post('/SignUp', async(req,res) => {
   }
 })
 
+
+//ROUTE FOR LOGIN PAGE
 app.post('/Login', async(req,res) => {
   const name = req.body["Name"];
   const password = req.body["Password"];
@@ -66,7 +69,75 @@ app.post('/Login', async(req,res) => {
 
 
 
+//ROUTE FOR CREATE ANNOUNCEMENT PAGE
+app.post('/Announcement', async(req,res) => {
+  const organiser = req.body["Organiser"];
+  const time = req.body["Time"];
+  const date = req.body["Date_"];
+  const place = req.body["Place"];
+  const desciption = req.body["Description"];
+
+  const newEntry = {
+    Organiser : organiser,
+    Time : time,
+    Date_ : date,
+    Place : place,
+    Description : desciption
+  };
+  const response = await Announcement.create(newEntry)
+  console.log(response)
+  res.json({
+    message: 'Announcment Created'
+  })
+})
+
+//ROUTE FOR HOME PAGE
+app.get('/HomePage', async(req,res)=>{
+  const records = await Announcement.find()
+  console.log(records);
+  res.json(records)
+  //res.send('welcome')
+})
+
+
+//DATE FILTER 
+app.post('/HomePage/Date', async(req,res)=>{
+  const date = req.body["Date"]
+  const records = await Announcement.find({Date_ : date})
+  if(records == null || records.length == 0 ){
+    res.json({
+      message : "No Events Found"
+    })
+  }else {
+    res.json(records)
+  }
+})
+
+
 
 app.listen(5000,() => { //This function activates the server
     console.log('server is running on port 5000');
 })
+
+
+/*
+{
+  "Organiser" : "ACMCSS",
+  "Time" : "9:00 pm",
+  "date" : "24-11-21",
+  "Place" : "Cisco Webex",
+  "Description" : "Ideathon!!!"
+}
+
+*/
+
+/*{
+  "SignUpAs" : "Organiser",
+  "Name" : "Dhruv",
+  "Sid" : "291387",
+  "PhoneNumber" : "81937413",
+  "Email" : "efjisk@iwuk.com",
+  "Branch" : "uiahb",
+  "Password" : "aeiud"
+}
+*/
