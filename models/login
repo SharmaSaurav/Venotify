@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
 const loginSchema = new mongoose.Schema({
-	name : { type: String, required: true},
-    assword : {type: String, required: true},
+	Name : { type: String, required: true},
+    Password : {type: String, required: true},
 })
 
 const loginModel = mongoose.model('loginModel', loginSchema)

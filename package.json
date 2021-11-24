@@ -2,10 +2,17 @@
   "name": "Venotify",
   "version": "1.0.0",
   "description": "Remember how frustating it is when you missed some of the coolest events that you definetly wanted to be part of. Venotify aims to solve that problem for you as it will remind you of all the events and workshops happening in your college.",
-  "main": "test_server.js",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start" : "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +24,5 @@
   "bugs": {
     "url": "https://github.com/SharmaSaurav/Venotify/issues"
   },
-  "homepage": "https://github.com/SharmaSaurav/Venotify#readme",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "mongoose": "^6.0.13",
-    "nodemon": "^2.0.15"
-  }
+  "homepage": "https://github.com/SharmaSaurav/Venotify#readme"
 }
