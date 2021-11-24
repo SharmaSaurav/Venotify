@@ -21,6 +21,8 @@ app.post('/SignUp', async(req,res) => {
   const branch = req.body["Branch"];
   const password = req.body["Password"];
 
+  console.log(sid);
+
   const records = await SignUp.findOne({Sid:sid});
   console.log(records)
   if(records == null || records.length == 0){
@@ -61,6 +63,8 @@ app.post('/Login', async(req,res) => {
   }
  
 })
+
+
 
 
 app.listen(5000,() => { //This function activates the server

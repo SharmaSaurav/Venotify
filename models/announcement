@@ -1,0 +1,14 @@
+const mongoose = require('mongoose')
+
+
+const announcementSchema = new mongoose.Schema({
+	Organiser : { type: String, required: true},
+    Time : {type: String, required: true},
+    Dinaank :{type: String, required: true},
+    Place :{type: String, required: true},
+    Description :{type: String, required: true}
+})
+
+const announcementModel = mongoose.model('announcementModel', announcementSchema)
+
+module.exports = announcementModel

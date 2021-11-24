@@ -1,26 +1,54 @@
-const express = require('express')               // Because we need express
-const app = express()                           //Instantiate express and call the object "app"
-const mongoose = require('mongoose')             //Because we need mongoose for the database
-const bodyParser = require('body-parser')
-const login = require('./models/login')
-const SignUp = require('./models/signup')
+const express = require('express')  // Because we need express
+const app = express()   //Instantiate express and call the object "app"
+const mongoose = require('mongoose')    //Because we need mongoose for the database
+const bodyParser = require('body-parser');
+const SignUp = require('./models/signUp')
+const Login = require('./models/login')
+const Announcement = require('./models/announcement')
 app.use(bodyParser.json());
 
-// const DB = "mongodb+srv://venotify:venotify123@cluster0.bxgwe.mongodb.net/venotifyDB?retryWrites=true&w=majority"   //Database link + authentication
+const DB = "mongodb+srv://Dhruv:Dhruv123@cluster0.bxgwe.mongodb.net/Venotify?retryWrites=true&w=majority"   //Database link + authentication
 
-// mongoose.connect(DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => { //This function connects to the database
-//     console.log('connection successful');
-//   }).catch((err)=>console.log('Connection Failed'));
-mongoose.connect('mongodb://localhost/mongo')
+mongoose.connect(DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => { //This function connects to the database
+    console.log('connection successful');
+  }).catch((err)=>console.log(err));
 
-app.post('/login', async(req,res) => {
-  const Name = req.body["Name"];
-  const password = req.body["password"];
 
-  console.log(Name);
-  console.log(password);
+// ROUTE FOR SIGN UP PAGE
+app.post('/SignUp', async(req,res) => {
+  const signUpAs = req.body["SignUpAs"];
+  const name = req.body["Name"];
+  const sid = req.body["Sid"];
+  const phoneNumber = req.body["PhoneNumber"];
+  const email = req.body["Email"];
+  const branch = req.body["Branch"];
+  const password = req.body["Password"];
 
-  const records = await login.findOne({Name : Name, password : password})
+  const records = await SignUp.findOne({Sid:sid});
+  console.log(records)
+  if(records == null || records.length == 0){
+    const newEntry = {SignUpAs:signUpAs, Name:name, Sid:sid, PhoneNumber:phoneNumber, Email:email, Branch:branch, Password:password};
+    const response = await SignUp.create(newEntry)
+    console.log(response)
+    res.json({
+      message: 'Created'
+    })
+  }
+
+  else{
+    res.status(403).json({
+      message: 'Already There'
+    })
+  }
+})
+
+
+//ROUTE FOR LOGIN PAGE
+app.post('/Login', async(req,res) => {
+  const name = req.body["Name"];
+  const password = req.body["Password"];
+
+  const records = await Login.findOne({Name : name})
   console.log(records)
   if(records == null || records.length == 0){
     // const newEntry = {Username: userName, Password: password}
@@ -39,44 +67,49 @@ app.post('/login', async(req,res) => {
  
 })
 
-app.post('/SignUp', async(req,res) => {
-    const signUpAs = req.body["signUpAs"]
-    const Name = req.body["Name"];
-    const sid = req.body["sid"];
-    const email = req.body["email"]
-    const branch = req.body["branch"]
-    const phoneNumber = req.body["phoneNumber"]
-    const password = req.body["password"]
 
-    console.log(Name);
-    console.log(sid);
+
+//ROUTE FOR CREATE ANNOUNCEMENT PAGE
+app.post('/Announcement', async(req,res) => {
+  const organiser = req.body["Organiser"];
+  const time = req.body["Time"];
+  const date = req.body["date"];
+  const place = req.body["Place"];
+  const desciption = req.body["Description"];
+
+  // const records = await SignUp.findMany({Time : time, Date: date});
+  // console.log(records)
   
-    const records = await SignUp.findOne({Name : Name, sid : sid})
-    console.log(records)
-    if(records == null || records.length == 0){
-      const newEntry = {
-          signUpAs: signUpAs,
-          Name: Name,
-          sid:sid,
-          email : email,
-          branch: branch,
-          phoneNumber : phoneNumber,
-          password:password
-        }
-      const response = await SignUp.create(newEntry)
-      console.log(response)
-      res.json({
-        message: 'Created'
-      })
-    }
-  
-    else{
-      res.status(403).json({
-        message: 'Already There'
-      })
-    }
-   
+  const newEntry = {
+    Organiser : organiser,
+    Time : time,
+    Dinaank : date,
+    Place : place,
+    Description : desciption
+  };
+  const response = await Announcement.create(newEntry)
+  console.log(response)
+  res.json({
+    message: 'Announcment Created'
   })
+
+
+//   else{
+//     res.status(403).json({
+//       message: 'Already There'
+//     })
+//   }
+})
+
+//ROUTE FOR HOME PAGE
+app.get('/HomePage', async(req,res)=>{
+  res.json({
+    message: 'Welcome'
+  })
+})
+
+
+
 
 app.listen(5000,() => { //This function activates the server
     console.log('server is running on port 5000');
@@ -85,12 +118,22 @@ app.listen(5000,() => { //This function activates the server
 
 /*
 {
-    "signUpAS" = "student"
-    "Name" = "Ansh Ohri"
-    "sid "= "20104026"
-    "email" = "uiesa@uadhb.com"
-    "branch" =  "EE"
-    "phoneNumber" = "0987133"
-    "password "= "daihkf"
+  "Organiser" : "ACMCSS",
+  "Time" : "9:00 pm",
+  "date" : "24-11-21",
+  "Place" : "Cisco Webex",
+  "Description" : "Ideathon!!!"
+}
+
+*/
+
+/*{
+  "SignUpAs" : "Organiser",
+  "Name" : "Dhruv",
+  "Sid" : "291387",
+  "PhoneNumber" : "81937413",
+  "Email" : "efjisk@iwuk.com",
+  "Branch" : "uiahb",
+  "Password" : "aeiud"
 }
 */
