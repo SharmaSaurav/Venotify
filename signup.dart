@@ -85,7 +85,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
 }
 
 void _showMultiSelect(BuildContext context) async {
-  clubsinlist = {};
+  clubs = [];
   populateclubs();
   final items = clubsinlist;
 
