@@ -45,10 +45,10 @@ app.post('/SignUp', async(req,res) => {
 
 //ROUTE FOR LOGIN PAGE
 app.post('/Login', async(req,res) => {
-  const name = req.body["Name"];
+  const email = req.body["Email"];
   const password = req.body["Password"];
 
-  const records = await Login.findOne({Name : name})
+  const records = await SignUp.findOne({Email : email})
   console.log(records)
   if(records == null || records.length == 0){
     // const newEntry = {Username: userName, Password: password}
@@ -102,7 +102,7 @@ app.get('/HomePage', async(req,res)=>{
 
 //DATE FILTER 
 app.post('/HomePage/Date', async(req,res)=>{
-  const date = req.body["Date"]
+  const date = req.body["Date_"]
   const records = await Announcement.find({Date_ : date})
   if(records == null || records.length == 0 ){
     res.json({
@@ -115,7 +115,7 @@ app.post('/HomePage/Date', async(req,res)=>{
 
 
 
-app.listen(process.env.PORT || 5000,() => { //This function activates the server
+app.listen(5000,() => { //This function activates the server
     console.log('server is running on port 5000');
 })
 
