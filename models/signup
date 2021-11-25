@@ -1,8 +1,14 @@
 const mongoose = require('mongoose')
 
+
 const signUpSchema = new mongoose.Schema({
-	Username : { type: String, required: true},
-    Password : {type: String, required: true},
+	SignUpAs : { type: String, required: true},
+    Name : {type: String, required: true},
+    Sid :{type: String, required: true},
+    PhoneNumber :{type: String, required: true},
+    Email :{type: String, required: true},
+    Branch :{type: String, required: true},
+    Password :{type: String, required: true}
 })
 
 const signUpModel = mongoose.model('signUpModel', signUpSchema)
