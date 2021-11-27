@@ -289,7 +289,7 @@ class signupPageState extends State<signupPage> {
                         // ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 10.0, left: 20),
+                        margin: EdgeInsets.only(top: 10.0,),
                         child: clubsandsocietiesField(),
                       ),
                       Container(margin: EdgeInsets.only(top: 20.0)),
