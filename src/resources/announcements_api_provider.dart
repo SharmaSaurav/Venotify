@@ -10,7 +10,7 @@ class NewsApiProvider {
   Client client = Client();
   Future<AnnouncementModel> fetchAnnouncmentsApi() async {
     final res =
-        await client.get('$_root/HomePage'); // brings a list of announcements
+        await client.get(Uri.parse('$_root/HomePage')); // brings a list of announcements
     final a = res.body[0]; // takes out 1st announcement dont know if it works
     final parsedJson = json.decode(a);
 
