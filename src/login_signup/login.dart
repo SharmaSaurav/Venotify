@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import './signup.dart';
-import '../home/home_page.dart';
-import 'forget_password.dart';
+import '../Home_page/home_page.dart';
+import '../Forget_pass/forget_password.dart';
 
 class LoginPage extends StatefulWidget {
   createState() {
     return LoginPageState();
   }
 }
+
+var dropdownValue;
 
 class LoginPageState extends State<LoginPage> {
   final formkey = GlobalKey<FormState>();
@@ -43,10 +45,23 @@ class LoginPageState extends State<LoginPage> {
                     Container(margin: EdgeInsets.only(top: 10.0)),
                     passwordField(),
                     Container(margin: EdgeInsets.only(top: 20.0)),
-                    submitButton(),
-                    Container(margin: EdgeInsets.only(top: 40.0)),
-                    forgotPasswordField(),
+                    Row(children: [
+                      Container(margin: EdgeInsets.only(left: 90.0)),
+                      Text(
+                        'Login as:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15.0,
+                          color: Colors.indigo,
+                        ),
+                      ),
+                      loginAs(context)
+                    ]),
                     Container(margin: EdgeInsets.only(top: 20.0)),
+                    submitButton(),
+                    Container(margin: EdgeInsets.only(top: 20.0)),
+                    forgotPasswordField(),
+                    Container(margin: EdgeInsets.only(top: 10.0)),
                     signupLink(),
                     Container(margin: EdgeInsets.only(top: 20.0))
                   ],
@@ -62,12 +77,12 @@ class LoginPageState extends State<LoginPage> {
       decoration: InputDecoration(
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.purple,
+            color: Colors.indigo,
           ),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.purple,
+            color: Colors.indigo,
           ),
         ),
         labelText: 'Email Address',
@@ -98,7 +113,7 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
-    Widget passwordField() {
+  Widget passwordField() {
     return TextFormField(
       cursorColor: Colors.black,
       keyboardType: TextInputType.text,
@@ -106,12 +121,12 @@ class LoginPageState extends State<LoginPage> {
       decoration: InputDecoration(
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.purple,
+            color: Colors.indigo,
           ),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.purple,
+            color: Colors.indigo,
           ),
         ),
         labelText: 'Password',
@@ -139,10 +154,36 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget loginAs(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_drop_down_sharp),
+      iconSize: 30,
+      elevation: 10,
+      style: const TextStyle(color: Colors.blueGrey),
+      underline: Container(
+        height: 2,
+        color: Colors.indigo,
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+        });
+      },
+      items: <String>['Student', 'Organizer']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text((value)),
+        );
+      }).toList(),
+    );
+  }
+
   Widget submitButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: Colors.purple.shade900,
+        primary: Colors.indigo,
         padding: EdgeInsets.all(15.0),
         textStyle: TextStyle(
           color: Colors.white10,
@@ -191,7 +232,7 @@ class LoginPageState extends State<LoginPage> {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 15.0,
-          color: Colors.purple,
+          color: Colors.indigo,
         ),
       ),
     );
@@ -201,13 +242,13 @@ class LoginPageState extends State<LoginPage> {
     return TextButton(
       onPressed: () {
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ForgetPassword()));
+            context, MaterialPageRoute(builder: (context) => ForgetPassword()));
       },
       child: Text(
         'Forgot password?',
         style: TextStyle(
           fontSize: 15.0,
-          color: Colors.purple,
+          color: Colors.indigo,
         ),
       ),
     );

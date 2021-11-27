@@ -49,7 +49,7 @@ class HomePageState extends State<HomePage> {
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.height / 50,
                             fontWeight: FontWeight.bold,
-                            color: Colors.indigo[600],
+                            color: Colors.purple[600],
                           ),
                         ),
                       ),
@@ -78,7 +78,7 @@ class HomePageState extends State<HomePage> {
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.height / 40,
                 fontWeight: FontWeight.bold,
-                color: Colors.indigo[600],
+                color: Colors.purple[600],
               ),
             )
                 // have to add a date widget here in row

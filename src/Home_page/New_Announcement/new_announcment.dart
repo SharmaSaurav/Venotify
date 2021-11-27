@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import 'profile_page.dart';
+import '../home_page.dart';
+import '../profile_page.dart';
 
 class AnnouncementPage extends StatefulWidget {
   createState() {
@@ -31,15 +31,15 @@ class AnnouncementPageState extends State<AnnouncementPage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if(index == 1){
+      if (index == 1) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => AnnouncementPage()));
+      } else if (index == 2) {
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AnnouncementPage()));
-      }
-      else if(index == 2){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => profilePage()));
-      }
-      else {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => homePage()));
+            context, MaterialPageRoute(builder: (context) => profilePage()));
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => homePage()));
       }
     });
   }
@@ -60,19 +60,19 @@ class AnnouncementPageState extends State<AnnouncementPage> {
               //activeIcon: AnnouncementPage(),
             )),
             (BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'you',
+              icon: Icon(Icons.account_circle),
+              label: 'you',
             )),
           ],
           backgroundColor: Colors.white,
-          selectedItemColor: Colors.purple.shade900,
+          selectedItemColor: Colors.purple,
           unselectedItemColor: Colors.grey.shade300,
           iconSize: 24.0,
           elevation: 8.0,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
         ),
-        backgroundColor: Colors.deepPurple.shade100,
+        backgroundColor: Colors.purple[50],
         appBar: AppBar(
           backgroundColor: Colors.purple.shade900,
           toolbarHeight: 40.0,
@@ -105,7 +105,7 @@ class AnnouncementPageState extends State<AnnouncementPage> {
                   key: formkey,
                   child: Column(
                     children: <Widget>[
-                       Container(
+                      Container(
                         margin: EdgeInsets.only(top: 10.0, left: 20, right: 40),
                         child: organiserField(),
                       ),
@@ -359,10 +359,10 @@ class AnnouncementPageState extends State<AnnouncementPage> {
     );
   }
 
-   Widget submitButton() {
+  Widget submitButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: Colors.purple.shade900,
+        primary: Colors.purple,
         padding: EdgeInsets.all(15.0),
         textStyle: TextStyle(
           color: Colors.white10,

@@ -138,9 +138,9 @@ class signupPageState extends State<signupPage> {
   Widget build(context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.deepPurple.shade100,
+        backgroundColor: Colors.purple[50],
         appBar: AppBar(
-          backgroundColor: Colors.purple.shade900,
+          backgroundColor: Colors.purple,
           toolbarHeight: 40.0,
           centerTitle: true,
           title: Text(
@@ -289,7 +289,9 @@ class signupPageState extends State<signupPage> {
                         // ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 10.0,),
+                        margin: EdgeInsets.only(
+                          top: 10.0,
+                        ),
                         child: clubsandsocietiesField(),
                       ),
                       Container(margin: EdgeInsets.only(top: 20.0)),

@@ -23,18 +23,18 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: ('VENOTIFY'),
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        cursorColor: Colors.indigo[600],
+        primarySwatch: Colors.purple,
+        cursorColor: Colors.purple[600],
       ),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.indigo[50],
+        backgroundColor: Colors.purple[50],
         appBar: AppBar(
           title: Text('WELCOME TO VENOTIFY!!'),
-          shadowColor: Colors.indigo[600],
-          backgroundColor: Colors.indigo[600],
+          shadowColor: Colors.purple[600],
+          backgroundColor: Colors.purple[600],
         ),
-        body: HomePage(),
+        body: LoginPage(),
       ),
     );
   }

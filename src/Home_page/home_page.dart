@@ -1,7 +1,7 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'new_announcement.dart';
+import 'New_Announcement/new_announcment.dart';
 import 'home_screen.dart';
 import 'profile_page.dart';
 
@@ -11,9 +11,7 @@ class homePage extends StatefulWidget {
   }
 }
 
-
 class homepageState extends State<homePage> {
-
   int _selectedIndex = 0;
 
   // List<Widget> _widgetOptions = <Widget>[
@@ -25,15 +23,15 @@ class homepageState extends State<homePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if(index == 1){
+      if (index == 1) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => AnnouncementPage()));
+      } else if (index == 2) {
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AnnouncementPage()));
-      }
-      else if(index == 2){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => profilePage()));
-      }
-      else {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => profilePage()));
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
       }
     });
   }
@@ -41,7 +39,7 @@ class homepageState extends State<homePage> {
   Widget build(context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.deepPurple.shade100,
+        backgroundColor: Colors.purple[50],
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             (BottomNavigationBarItem(
@@ -55,8 +53,8 @@ class homepageState extends State<homePage> {
               //activeIcon: AnnouncementPage(),
             )),
             (BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'you',
+              icon: Icon(Icons.account_circle),
+              label: 'you',
             )),
           ],
           backgroundColor: Colors.white,

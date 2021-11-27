@@ -13,7 +13,7 @@ class ForgetPassword extends StatelessWidget {
 
   Widget build(context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple.shade100,
+        backgroundColor: Colors.purple[50],
         body: Form(
             child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +83,7 @@ class ForgetPassword extends StatelessWidget {
   Widget submitButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: Colors.purple.shade900,
+        primary: Colors.purple,
         padding: EdgeInsets.all(15.0),
         textStyle: TextStyle(
           color: Colors.white10,
