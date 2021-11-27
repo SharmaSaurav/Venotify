@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './signup.dart';
-import '../Forget_pass/forget_password.dart';
+import '../home/home_page.dart';
+import 'forget_password.dart';
 
 class LoginPage extends StatefulWidget {
   createState() {
@@ -37,17 +38,13 @@ class LoginPageState extends State<LoginPage> {
                 key: formkey,
                 child: Column(
                   children: [
-                    Container(
-                        margin:
-                            EdgeInsets.only(top: 10.0, left: 10.0, right: 10),
-                        child: emailField()),
-                    Container(
-                        margin:
-                            EdgeInsets.only(top: 10.0, left: 10.0, right: 10),
-                        child: passwordField()),
+                    Container(margin: EdgeInsets.only(top: 10.0)),
+                    emailField(),
+                    Container(margin: EdgeInsets.only(top: 10.0)),
+                    passwordField(),
                     Container(margin: EdgeInsets.only(top: 20.0)),
                     submitButton(),
-                    Container(margin: EdgeInsets.only(top: 20.0)),
+                    Container(margin: EdgeInsets.only(top: 40.0)),
                     forgotPasswordField(),
                     Container(margin: EdgeInsets.only(top: 20.0)),
                     signupLink(),
@@ -60,9 +57,24 @@ class LoginPageState extends State<LoginPage> {
 
   Widget emailField() {
     return TextFormField(
+      cursorColor: Colors.black,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.purple,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.purple,
+          ),
+        ),
         labelText: 'Email Address',
+        icon: Icon(
+          Icons.email,
+          color: Colors.black,
+        ),
         labelStyle: TextStyle(
           color: Colors.black38,
           fontSize: 20.0,
@@ -86,12 +98,27 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget passwordField() {
+    Widget passwordField() {
     return TextFormField(
-      obscureText: true,
+      cursorColor: Colors.black,
       keyboardType: TextInputType.text,
+      obscureText: true,
       decoration: InputDecoration(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.purple,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.purple,
+          ),
+        ),
         labelText: 'Password',
+        icon: Icon(
+          Icons.lock,
+          color: Colors.black,
+        ),
         labelStyle: TextStyle(
           color: Colors.black38,
           fontSize: 20.0,
@@ -108,9 +135,6 @@ class LoginPageState extends State<LoginPage> {
         if (value!.length < 8) {
           return 'password must be atleast 8 characters long';
         }
-      },
-      onSaved: (value) {
-        password = value!;
       },
     );
   }
@@ -129,6 +153,8 @@ class LoginPageState extends State<LoginPage> {
       onPressed: () {
         if (formkey.currentState!.validate()) {
           formkey.currentState!.save();
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => homePage()));
           print('alldone');
         }
       },
@@ -175,7 +201,7 @@ class LoginPageState extends State<LoginPage> {
     return TextButton(
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ForgetPassword()));
+          context, MaterialPageRoute(builder: (context) => ForgetPassword()));
       },
       child: Text(
         'Forgot password?',
