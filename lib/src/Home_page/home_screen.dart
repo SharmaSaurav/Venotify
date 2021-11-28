@@ -110,14 +110,15 @@ Widget announcements() {
     // child: (Text('pic_of_platform  title   date')),
     child: Row(children: [
       Icon(Icons.alarm),
-      Text('      Ideathon      28-11-21'),
+      Text(announcement!.Description),
+      Text(announcement!.Date_),
     ]),
   );
 }
 
 Future<void> data() async {
   announcement = await rep.fetchAnnouncments();
-  print(announcement!.Organiser);
+  print(announcement!.Time);
 }
 
 void showConsoleUsingPrint() {

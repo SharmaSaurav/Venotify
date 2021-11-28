@@ -3,7 +3,7 @@ import 'dart:convert';
 class AnnouncementModel {
   final String _id;
   final String Organiser;
-  final int Time;
+  final String Time;
   // final String Title;
   final String Date_;
   final String Place;

@@ -9,11 +9,12 @@ final _root = 'https://fierce-bayou-06187.herokuapp.com';
 class NewsApiProvider {
   Client client = Client();
   Future<AnnouncementModel> fetchAnnouncmentsApi() async {
-    final res =
-        await client.get(Uri.parse('$_root/HomePage')); // brings a list of announcements
-    final a = res.body[0]; // takes out 1st announcement dont know if it works
+    final res = await client
+        .get(Uri.parse('$_root/HomePage')); // brings a list of announcements
+    // print(res);
+    final a = res.body; // takes out 1st announcement dont know if it works
     final parsedJson = json.decode(a);
 
-    return AnnouncementModel.fromJson(parsedJson);
+    return AnnouncementModel.fromJson(parsedJson[0]);
   }
 }
