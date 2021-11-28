@@ -110,8 +110,9 @@ Widget announcements() {
     // child: (Text('pic_of_platform  title   date')),
     child: Row(children: [
       Icon(Icons.alarm),
-      Text(announcement!.Description),
-      Text(announcement!.Date_),
+      Text(" Ideathon ")
+      // Text(announcement!.Description),
+      // Text(announcement!.Date_),
     ]),
   );
 }

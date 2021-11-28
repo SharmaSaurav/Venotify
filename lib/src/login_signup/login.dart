@@ -2,14 +2,23 @@ import 'package:flutter/material.dart';
 import './signup.dart';
 import '../Home_page/home_page.dart';
 import '../Forget_pass/forget_password.dart';
+import '../models/login_model.dart';
+import '../resources/api_provider.dart';
+
+var dropdownValue;
+LoginRequestModel requestModel = LoginRequestModel();
+// LoginRequestModel requestModel
+// @override
+// void initState() {
+//   initState();
+//   requestModel = LoginRequestModel();
+// }
 
 class LoginPage extends StatefulWidget {
   createState() {
     return LoginPageState();
   }
 }
-
-var dropdownValue;
 
 class LoginPageState extends State<LoginPage> {
   final formkey = GlobalKey<FormState>();
@@ -56,7 +65,7 @@ class LoginPageState extends State<LoginPage> {
                           color: Colors.indigo,
                         ),
                       ),
-                      loginAs(context)
+                      // loginAs(context)
                     ]),
                     Container(margin: EdgeInsets.only(top: 20.0)),
                     submitButton(),
@@ -73,45 +82,45 @@ class LoginPageState extends State<LoginPage> {
 
   Widget emailField() {
     return TextFormField(
-      cursorColor: Colors.black,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.indigo,
+        cursorColor: Colors.black,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.indigo,
+            ),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.indigo,
+            ),
+          ),
+          labelText: 'Email Address',
+          icon: Icon(
+            Icons.email,
+            color: Colors.black,
+          ),
+          labelStyle: TextStyle(
+            color: Colors.black38,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+          contentPadding: EdgeInsets.only(left: 15.0, right: 15.0),
+          hintText: 'example@pec.edu.in',
+          hintStyle: TextStyle(
+            color: Colors.grey.shade700,
+            fontSize: 16.0,
           ),
         ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.indigo,
-          ),
-        ),
-        labelText: 'Email Address',
-        icon: Icon(
-          Icons.email,
-          color: Colors.black,
-        ),
-        labelStyle: TextStyle(
-          color: Colors.black38,
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-        ),
-        contentPadding: EdgeInsets.only(left: 15.0, right: 15.0),
-        hintText: 'example@pec.edu.in',
-        hintStyle: TextStyle(
-          color: Colors.grey.shade700,
-          fontSize: 16.0,
-        ),
-      ),
-      validator: (value) {
-        if (!value!.contains('@pec.edu.in')) {
-          return 'please enter a valid email id!';
-        }
-      },
-      onSaved: (value) {
-        email = value!;
-      },
-    );
+        validator: (value) {
+          if (!value!.contains('@pec.edu.in')) {
+            return 'please enter a valid email id!';
+          }
+        },
+        onSaved: (value) {
+          requestModel.email = value!;
+          email = value;
+        });
   }
 
   Widget passwordField() {
@@ -147,6 +156,10 @@ class LoginPageState extends State<LoginPage> {
           fontSize: 16.0,
         ),
       ),
+      onSaved: (value) {
+        requestModel.password = value!;
+        password = value;
+      },
       validator: (value) {
         if (value!.length < 8) {
           return 'password must be atleast 8 characters long';
@@ -201,7 +214,16 @@ class LoginPageState extends State<LoginPage> {
           formkey.currentState!.save();
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => homePage()));
-          print('alldone');
+          NewsApiProvider api = new NewsApiProvider();
+          api.checkLoginApi(requestModel).then((value) {
+            final snackBar = SnackBar(content: Text(value.message));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(value.message),
+              duration: const Duration(seconds: 1),
+            )); //snack bar isnt working
+            print(value.message);
+          });
+          print(requestModel.toJson());
         }
       },
       child: Text('Submit'),
