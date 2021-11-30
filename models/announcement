@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 
 
 const announcementSchema = new mongoose.Schema({
-    Title : { type: String, required: true},
 	Organiser : { type: String, required: true},
     Time : {type: String, required: true},
     Date_ :{type: String, required: true},

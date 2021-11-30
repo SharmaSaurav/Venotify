@@ -71,7 +71,7 @@ app.post('/Login', async(req,res) => {
 
 //ROUTE FOR CREATE ANNOUNCEMENT PAGE
 app.post('/Announcement', async(req,res) => {
-  const title =req.body["Title"]
+  //const title =req.body["Title"]
   const organiser = req.body["Organiser"];
   const time = req.body["Time"];
   const date = req.body["Date_"];
@@ -79,7 +79,7 @@ app.post('/Announcement', async(req,res) => {
   const desciption = req.body["Description"];
 
   const newEntry = {
-    Title : title,
+    //Title : title,
     Organiser : organiser,
     Time : time,
     Date_ : date,
