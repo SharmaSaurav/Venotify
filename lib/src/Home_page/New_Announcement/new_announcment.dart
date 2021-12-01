@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import '../home_page.dart';
 import '../profile_page.dart';
+import '../../models/announcement_model.dart';
+import '../../resources/api_provider.dart';
 
 class AnnouncementPage extends StatefulWidget {
   createState() {
     return AnnouncementPageState();
   }
 }
+
+AnnouncementModel announcement = AnnouncementModel();
 
 class AnnouncementPageState extends State<AnnouncementPage> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
@@ -16,8 +20,6 @@ class AnnouncementPageState extends State<AnnouncementPage> {
   String Date_ = '';
   String Place = '';
   String Description = '';
-  TextEditingController password = TextEditingController();
-  TextEditingController confirm_password = TextEditingController();
   // String designation = 'Secretary';
 
   int _selectedIndex = 1;
@@ -74,7 +76,7 @@ class AnnouncementPageState extends State<AnnouncementPage> {
         ),
         backgroundColor: Colors.purple[50],
         appBar: AppBar(
-          backgroundColor: Colors.purple.shade900,
+          backgroundColor: Colors.purple,
           toolbarHeight: 40.0,
           centerTitle: true,
           title: Text(
@@ -181,7 +183,8 @@ class AnnouncementPageState extends State<AnnouncementPage> {
         }
       },
       onSaved: (value) {
-        Organiser = value!;
+        announcement.Organiser = value!;
+        Organiser = value;
       },
     );
   }
@@ -225,6 +228,7 @@ class AnnouncementPageState extends State<AnnouncementPage> {
       },
       onSaved: (value) {
         Place = value!;
+        announcement.Place = value;
       },
     );
   }
@@ -263,12 +267,13 @@ class AnnouncementPageState extends State<AnnouncementPage> {
         ),
       ),
       validator: (value) {
-        if (!value!.contains('am') || !value.contains('pm')) {
+        if (!value!.contains('am') && !value.contains('pm')) {
           return 'please valid time as in 9:00 am';
         } // have to take care time is not > 24
       },
       onSaved: (value) {
         Time = value!;
+        announcement.Time = value;
       },
     );
   }
@@ -312,7 +317,8 @@ class AnnouncementPageState extends State<AnnouncementPage> {
       //   } // have to take care time is not > 24
       // },
       onSaved: (value) {
-        Time = value!;
+        Date_ = value!;
+        announcement.Date_ = value;
       },
     );
   }
@@ -356,6 +362,10 @@ class AnnouncementPageState extends State<AnnouncementPage> {
       //     return 'password must be atleast 8 characters long';
       //   }
       // },
+      onSaved: (value) {
+        Description = value!;
+        announcement.Description = value;
+      },
     );
   }
 
@@ -374,6 +384,9 @@ class AnnouncementPageState extends State<AnnouncementPage> {
         if (formkey.currentState!.validate()) {
           formkey.currentState!.save();
           print('alldone');
+          NewsApiProvider api = NewsApiProvider();
+          api.AnnouncementApi(announcement)
+              .then((value) => print(value.message));
         }
       },
       child: Text('Submit'),

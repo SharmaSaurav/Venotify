@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'dart:async';
-import '../models/item_model.dart';
+import '../models/announcement_model.dart';
 
 class NewsDbProvider {
   late Database db;

@@ -1,7 +1,7 @@
 import 'dart:convert';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:http/http.dart' show Client;
-import '../models/item_model.dart';
+import '../models/announcement_model.dart';
 import 'dart:async';
 
 final _root = 'https://fierce-bayou-06187.herokuapp.com';

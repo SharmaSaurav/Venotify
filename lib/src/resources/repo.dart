@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'announcements_api_provider.dart';
 import 'announcements_db_provider.dart';
-import '../models/item_model.dart';
+import '../models/announcement_model.dart';
 
 class Repository {
   NewsApiProvider newsApi = NewsApiProvider();

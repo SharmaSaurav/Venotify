@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import './clubs.dart';
+import '../resources/api_provider.dart';
+import '../models/signup_model.dart';
+
+SignupRequestModel requestModel = SignupRequestModel();
 
 class MultiSelectDialogItem<V> {
   const MultiSelectDialogItem(this.value, this.label);
@@ -346,7 +350,8 @@ class signupPageState extends State<signupPage> {
         }
       },
       onSaved: (value) {
-        phoneno = value!;
+        requestModel.PhoneNumber = value!;
+        phoneno = value;
       },
     );
   }
@@ -390,6 +395,7 @@ class signupPageState extends State<signupPage> {
       },
       onSaved: (value) {
         name = value!;
+        requestModel.Name = value;
       },
     );
   }
@@ -433,6 +439,7 @@ class signupPageState extends State<signupPage> {
       },
       onSaved: (value) {
         sid = value!;
+        requestModel.Sid = value;
       },
     );
   }
@@ -476,6 +483,7 @@ class signupPageState extends State<signupPage> {
       },
       onSaved: (value) {
         email = value!;
+        requestModel.email = value;
       },
     );
   }
@@ -561,31 +569,15 @@ class signupPageState extends State<signupPage> {
           return "passwords don't match!";
         }
       },
-    );
-  }
-
-  Widget submitButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: Colors.purple.shade900,
-        padding: EdgeInsets.all(15.0),
-        textStyle: TextStyle(
-          color: Colors.white10,
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      onPressed: () {
-        if (formkey.currentState!.validate()) {
-          formkey.currentState!.save();
-          print('alldone');
-        }
+      onSaved: (value) {
+        // password = value!;
+        requestModel.password = value!;
       },
-      child: Text('Submit'),
     );
   }
 
   Widget signupasField() {
+    requestModel.SignUpAs = 'Student';
     return DropdownButton<String>(
       value: signupas_,
       icon: Icon(Icons.keyboard_arrow_down_outlined),
@@ -604,6 +596,7 @@ class signupPageState extends State<signupPage> {
       onChanged: (newValue) {
         setState(() {
           signupas_ = newValue!;
+          requestModel.SignUpAs = newValue;
         });
       },
       items: [
@@ -658,6 +651,7 @@ class signupPageState extends State<signupPage> {
   }
 
   Widget branchField() {
+    requestModel.Branch = 'cse';
     return DropdownButton<String>(
       value: branch,
       icon: Icon(Icons.keyboard_arrow_down_outlined),
@@ -676,6 +670,7 @@ class signupPageState extends State<signupPage> {
       onChanged: (newValue) {
         setState(() {
           branch = newValue!;
+          requestModel.Branch = newValue;
         });
       },
       items: [
@@ -753,6 +748,37 @@ class signupPageState extends State<signupPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget submitButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.purple,
+        padding: EdgeInsets.all(15.0),
+        textStyle: TextStyle(
+          color: Colors.white10,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      onPressed: () {
+        if (formkey.currentState!.validate()) {
+          formkey.currentState!.save();
+          print('alldone');
+          NewsApiProvider api = new NewsApiProvider();
+          api.SignUpApi(requestModel).then((value) {
+            // final snackBar = SnackBar(content: Text(value.message));
+            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //   content: Text(value.message),
+            //   duration: const Duration(seconds: 1),
+            // )); //snack bar isnt working
+            print(value.message);
+          });
+          print(requestModel.toJson());
+        }
+      },
+      child: Text('Submit'),
     );
   }
 }

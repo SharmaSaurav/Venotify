@@ -62,10 +62,10 @@ class LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15.0,
-                          color: Colors.indigo,
+                          color: Colors.purple,
                         ),
                       ),
-                      // loginAs(context)
+                      loginAs(context)
                     ]),
                     Container(margin: EdgeInsets.only(top: 20.0)),
                     submitButton(),
@@ -87,12 +87,12 @@ class LoginPageState extends State<LoginPage> {
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.indigo,
+              color: Colors.purple,
             ),
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.indigo,
+              color: Colors.purple,
             ),
           ),
           labelText: 'Email Address',
@@ -131,12 +131,12 @@ class LoginPageState extends State<LoginPage> {
       decoration: InputDecoration(
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.indigo,
+            color: Colors.purple,
           ),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.indigo,
+            color: Colors.purple,
           ),
         ),
         labelText: 'Password',
@@ -171,23 +171,21 @@ class LoginPageState extends State<LoginPage> {
   Widget loginAs(BuildContext context) {
     // var FormBuilderValidators;
 
-    return DropdownButtonFormField<String>(
+    return DropdownButton<String>(
       value: dropdownValue,
-      icon: const Icon(Icons.arrow_drop_down_circle_sharp),
+      icon: const Icon(Icons.arrow_drop_down_sharp),
       iconSize: 30,
       elevation: 10,
-      style: const TextStyle(color: Colors.blueGrey, fontSize: 17),
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
+      style: const TextStyle(color: Colors.blueGrey),
+      underline: Container(
+        height: 2,
+        color: Colors.purple,
       ),
       onChanged: (String? newValue) {
         setState(() {
           dropdownValue = newValue!;
-          loginas = dropdownValue;
         });
       },
-      validator: (value) => value == null ? 'field required' : null,
-      hint: Text("Please Select"),
       items: <String>['Student', 'Organizer']
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
@@ -196,12 +194,37 @@ class LoginPageState extends State<LoginPage> {
         );
       }).toList(),
     );
+    // return DropdownButtonFormField<String>(
+    //   value: dropdownValue,
+    //   icon: const Icon(Icons.arrow_drop_down_circle_sharp),
+    //   iconSize: 30,
+    //   elevation: 10,
+    //   style: const TextStyle(color: Colors.blueGrey, fontSize: 17),
+    //   // decoration: InputDecoration(
+    //   //   border: OutlineInputBorder(),
+    //   // ),
+    //   onChanged: (String? newValue) {
+    //     setState(() {
+    //       dropdownValue = newValue!;
+    //       loginas = dropdownValue;
+    //     });
+    //   },
+    //   validator: (value) => value == null ? 'field required' : null,
+    //   hint: Text("Please Select"),
+    //   items: <String>['Student', 'Organizer']
+    //       .map<DropdownMenuItem<String>>((String value) {
+    //     return DropdownMenuItem<String>(
+    //       value: value,
+    //       child: Text((value)),
+    //     );
+    //   }).toList(),
+    // );
   }
 
   Widget submitButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: Colors.indigo,
+        primary: Colors.purple,
         padding: EdgeInsets.all(15.0),
         textStyle: TextStyle(
           color: Colors.white10,
@@ -216,11 +239,11 @@ class LoginPageState extends State<LoginPage> {
               context, MaterialPageRoute(builder: (context) => homePage()));
           NewsApiProvider api = new NewsApiProvider();
           api.checkLoginApi(requestModel).then((value) {
-            final snackBar = SnackBar(content: Text(value.message));
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(value.message),
-              duration: const Duration(seconds: 1),
-            )); //snack bar isnt working
+            // final snackBar = SnackBar(content: Text(value.message));
+            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //   content: Text(value.message),
+            //   duration: const Duration(seconds: 1),
+            // )); //snack bar isnt working
             print(value.message);
           });
           print(requestModel.toJson());
@@ -259,7 +282,7 @@ class LoginPageState extends State<LoginPage> {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 15.0,
-          color: Colors.indigo,
+          color: Colors.purple,
         ),
       ),
     );
@@ -275,7 +298,7 @@ class LoginPageState extends State<LoginPage> {
         'Forgot password?',
         style: TextStyle(
           fontSize: 15.0,
-          color: Colors.indigo,
+          color: Colors.purple,
         ),
       ),
     );
